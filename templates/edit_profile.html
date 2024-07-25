@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Settings</h1>
+
+<div class="settings_page">
+
+  <div class="user_info">
+
+    <div class='half'>
+      {% if hasPfp %}
+        <img src="static/uploads/{{UserName}}.png" alt="user_img" class="settings_user_img">
+      {% else %}
+        <img src="static/def_user.png" alt="user_img" class="settings_user_img">
+      {% endif %}
+    </div>
+    <div class="half-flex">
+      <form action='/edit_profile' method='POST' enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+          <p>Upload profile picture</p>
+          {{ form.profile_pic() }}
+        </div>
+        <br>
+        {{ form.submit(class="confirm_edits") }}
+      </form>
+    </div>
+
+  </div>
+
+  <a class="btn_set" href="/settings">
+    <span>Back to settings</span>
+  </a>
+
+  <!-- <button onclick="addCard()">add cards to inv</button> -->
+
+</div>
+
+{% endblock %}

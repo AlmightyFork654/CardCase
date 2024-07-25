@@ -1,0 +1,4 @@
+database 1: users
+database 2: card amount per card by user (to access: be logged in. then get username. then look through db 2 for user name (primary key) then row.card = amount)
+database 3: market (has also collum with username of seller) (buyer not needed cuz just get it from user who clicked buy) (when bidding is added we will see what we do... )
+all cards are hard coded

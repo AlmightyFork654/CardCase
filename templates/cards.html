@@ -1,0 +1,78 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+<h1 class="title">Cards</h1>
+
+<div class="cards_page">
+
+<!-- 
+  card dict:
+
+  naam : {keys:values}
+
+  keys: age, rarity, class, type, damage, hp, beschrijving
+-->
+
+  {% for card, data in cards_list.items() %}
+    <div class="card_box">
+      <img id="{{card}}" src="{{ url_for('serve_image', id=card) }}" class="card_{{data['rarity']}}" alt="{{card}}">
+      <!-- <img id="{{card}}" src="static/def_user.png" class="card_{{data['rarity']}}" alt="{{card}}"> -->
+      <p class="card_name">{{ card }}</p>
+    </div>
+
+    <dialog class="card_modal" id="{{card}}_page">
+      <div class="modal_top">
+        <div class="modal_top_text">
+          <h1 class="model_title">{{ card }}</h1>
+          <img src="static/cancel.png" alt="Close" class="close_btn" id="{{card}}_close">
+        </div>
+        <div class="modal_content">
+          <div class="modal_img">
+            <!-- <img src="{{ url_for('serve_image', id=card) }}" alt="{{card}}" class="modal_img_big"> -->
+            <!-- <img src="static/card_test.png" alt="{{card}}" class="modal_img_big"> -->
+            <img src="{{ url_for('serve_card', id=card) }}" class="modal_img_big" alt="{{card}}">
+          </div>
+          <div class="modal_text_area">
+            <div class="modal_stats">
+              <p class="text_in_modal_c">Stats:</p>
+              <p class="text_in_modal">Time Period: {{data['age']}} <img src="{{ url_for('serve_icon', id=data['age']) }}" alt='{{data["age"]}}' class='lil_icon'></p>
+              <p class="text_in_modal">Rarity: {{data['rarity']}} <img src="{{ url_for('serve_icon', id=data['rarity']) }}" alt='{{data["rarity"]}}' class='lil_icon'></p>
+              <p class="text_in_modal">Class: {{data['class']}} <img src="{{ url_for('serve_icon', id=data['class']) }}" alt='{{data["class"]}}' class='lil_icon'></p>
+              <p class="text_in_modal">Type: {{data['type']}} <img src="{{ url_for('serve_icon', id=data['type']) }}" alt='{{data["type"]}}' class='lil_icon'></p>
+              <p class="text_in_modal">Damage: {{data['damage']}} <img src="static/icons/damage.png" alt='damage' class='lil_icon'></p>
+              <p class="text_in_modal">Health Points: {{data['hp']}} <img src="static/icons/hp.png" alt='hp' class='lil_icon'></p>
+              
+            </div>
+            <div class="modal_text">
+              <p class="text_in_modal_c">Description:</p>
+              <p class="text_in_modal">{{data['description']}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const {{card}}_open = document.getElementById('{{card}}');
+        const {{card}}_modal = document.getElementById('{{card}}_page');
+        const {{card}}_close = document.getElementById('{{card}}_close');
+
+        {{card}}_open.addEventListener('click', () => {
+          {{card}}_modal.inert = true;
+
+          {{card}}_modal.showModal();
+
+          {{card}}_modal.inert = false;
+        });
+
+        {{card}}_close.addEventListener('click', () => {
+          {{card}}_modal.close();
+        });
+      })
+    </script>
+  {% endfor %}
+  
+</div>
+{% endblock %}

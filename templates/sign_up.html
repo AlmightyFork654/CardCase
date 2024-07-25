@@ -1,0 +1,43 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+  <h1 class="title">Sign Up</h1>
+
+  <div class=sign_up_page>
+
+    <div class="login_box">
+
+      <form action="/sign_up" method="POST">
+        {{ form.hidden_tag()}}
+  
+        <div class='logo_big'>
+          <i class="bx bx-card"></i>
+          <span>CardCase</span>
+        </div>
+  
+        {{ form.username.label(class='label') }} <br>
+        {{ form.username(class='input') }} 
+        <br>
+        {{ form.password.label(class='label') }} <br>
+        {{ form.password(class='input') }}
+        <br>
+        {{ form.submit(class='submit_login')}}
+  
+        {% if NameExists %}
+          <p class="bottom_text">Username already exists</p>
+        {% else %}
+          <p class="bottom_text">‎ </p>
+        {% endif %}
+  
+  
+        <p class="bottom_text">Do you already have an account? <a href="/login", class='link'>Login Here!</a></p>
+  
+      </form>
+
+    </div>
+
+  </div>
+
+
+{% endblock %}

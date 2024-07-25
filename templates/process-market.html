@@ -1,0 +1,22 @@
+<div class=coins_display>
+  <div class=coins_display>
+    <p class='coins'><img src='static/icons/cbuck.png' class='coins_img_s' alt='cbucks'><span id='coins_shop'>{{user.coins}}</span></p>
+  </div>
+</div>
+
+{% for item in market %}
+
+  {% set rarity = cards_list[item.card]['rarity'] %}
+
+  <div class="card_item">
+    <div class="card_item_img"">
+      <!-- <img src="{{ url_for('serve_image', id=item.card) }}" alt="{{item.card}}" class="market_img"> -->
+      <img src="{{ url_for('serve_image', id=item.card) }}" alt="{{item.card}}" class="card_shop">
+    </div>
+    <div class="card_item_info">
+      <p class="card_offer_name">{{item.card}}</p><br>
+      <p class="card_offer_price"> Price: {{item.pricing}} coins</p><br>
+      <button class="submit_buy" onclick="buy({{item.id}})">Buy</button>
+    </div>
+  </div>
+{% endfor %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Card Market</h1>
+
+<div id='market' class="market_page">
+  
+  <div class=coins_display>
+    <div class=coins_display>
+      <p class='coins'><img src='static/icons/cbuck.png' class='coins_img_s' alt='cbucks'><span id='coins_shop'>{{user.coins}}</span></p>
+    </div>
+  </div>
+
+  {% for item in market %}
+  
+    {% set rarity = cards_list[item.card]['rarity'] %}
+    
+    <div class="card_item">
+      <div class="card_item_img"">
+        <img src="{{ url_for('serve_image', id=item.card) }}" alt="{{item.card}}" class="card_{{rarity}}">
+        <!-- <img src="static/def_user.png" alt="{{item.card}}" class="card_{{rarity}}"> -->
+      </div>
+      <div class="card_item_info">
+        <p class="card_offer_name">{{item.card}}</p><br>
+        <p class="card_offer_price"> Price: {{item.pricing}} C-BUCKS</p><br>
+        <button class="submit_buy" onclick="buy({{item.id}})">Buy</button>
+      </div>
+    </div>
+  {% endfor %}
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function buy(id) {
+    
+    const dict_value = {
+      'id': id
+    }
+    const dict_string = JSON.stringify(dict_value)
+
+    $.ajax({
+      url: '/buy',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(dict_string)
+    });
+
+    const market = document.getElementById("market")
+    fetch('/process-market', {
+      method: 'GET'
+    })
+    .then(response => {
+      return response.text();
+    })
+    .then(html => {
+      market.innerHTML = html;
+    })
+    fetch('/coins')
+      .then(response => response.json())
+      .then(data => {
+        coins = document.getElementById('coins_bar')
+        coins.innerHTML = data
+      })
+  }
+</script>
+
+{% endblock %}

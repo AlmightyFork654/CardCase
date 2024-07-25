@@ -1,0 +1,18 @@
+2. simplify buying code
+ simplify code
+ simplify css
+3. imges asigned to characters
+  3.1 make cards of them
+
+
+5. buy system cbucks
+
+joan -> steve
+
+ 
+home pag -> if logged in: show stats? show other things?
+else show whats on about page? 
+
+make about page to explain stuff?
+
+imgs // sven

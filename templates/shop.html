@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Shop</h1>
+
+<div class="shop_page">
+  <div class=coins_display>
+    <div class=coins_display>
+      <p class='coins'><img src='static/icons/cbuck.png' class='coins_img_s' alt='cbucks'><span id='coins_shop'>{{user.coins}}</span></p>
+    </div>
+  </div>
+
+  <div class='timer_dis'>
+    <p id="timer" class='timer'>shop reset: XXm XXs</p>
+  </div>
+
+  <p class='shop_titles'>Cards</p>
+
+  <div class='cards_shop'>
+
+  {% for i, card in card_shop.items() %}
+
+    {% if rarity[card] == 'Common' %}
+      {% set price = 100 %}
+    {% elif rarity[card] == 'Uncommon' %}
+      {% set price = 250 %}
+    {% elif rarity[card] == 'Rare' %}
+      {% set price = 500 %}
+    {% elif rarity[card] == 'Epic' %}
+      {% set price = 750 %}
+    {% endif %}
+
+    <div class="card_box">
+      <img id="{{card}}" src="{{ url_for('serve_card', id=card) }}" class="card_shop" alt="{{card}}">
+      <!-- <img src="static/def_user.png" class="card_shop_{{rarity[card]}}" alt="card"> -->
+      <p class="card_name">{{card}}</p>
+      <button class="submit_buy_shop" onclick="shop_card('{{card}}', {{price}})">{{price}}</button>
+    </div>
+  {% endfor %}
+  </div>
+
+  <p class='shop_titles'>Packs</p>
+
+  <div class='packs'>
+    
+    <div class='pack_box'>
+      <div class='pack'>
+        <p class="pack_title">Card Pack</p>
+        <img src='static/pack.png' alt='pack' class='pack_img'>
+        <p>500 C-BUCKS</p>
+      </div>
+      <button class="submit_buy_shop" onclick="buyPack()">Buy</button>
+    </div>
+
+    <div class='pack_box'>
+      <div class='pack'>
+        <p class="pack_title">Big Card Pack</p>
+        <img src='static/big_pack.png' alt='pack' class='pack_img'>
+        <p>1200 C-BUCKS</p>
+      </div>
+      <button class="submit_buy_shop" onclick="buyBigPack()">Buy</button>
+    </div>
+
+    <div class='pack_box'>
+      <div class='pack'>
+        <p class="pack_title">Mega Card Pack</p>
+        <img src='static/mega_pack.png' alt='pack' class='pack_img'>
+        <p>3000 C-BUCKS</p>
+      </div>
+      <button class="submit_buy_shop" onclick="buyMegaPack()">Buy</button>
+    </div>
+
+    <div class='pack_box'>
+      <div class='pack'>
+        <p class="pack_title">Omega Card Pack</p>
+        <img src='static/omega_pack.png' alt='pack' class='pack_img'>
+        <p>10000 C-BUCKS</p>
+      </div>
+      <button class="submit_buy_shop" onclick="buyOmegaPack()">Buy</button>
+    </div>
+
+  </div>
+
+  <p class='shop_titles'>C-BUCKS</p>
+
+  <div class='cpacks'>
+    
+    <div class='cbucks_box'>
+      <div class='cbucks'>
+        <p class="pack_title">1000 C-BUCKS</p>
+        <img src='static/cbucks/1000.png' alt='pack' class='cbucks-pack_img'>
+        <p>€ 0,02</p>
+      </div>
+      <button class="submit_buy_shop" onclick="add_c1000()">Buy</button>
+    </div>
+
+    <div class='cbucks_box'>
+      <div class='cbucks'>
+        <p class="pack_title">2800 C-BUCKS</p>
+        <img src='static/cbucks/2800.png' alt='pack' class='cbucks-pack_img'>
+        <p>€ 0,04</p>
+      </div>
+      <button class="submit_buy_shop" onclick="add_c2800()">Buy</button>
+    </div>
+
+    <div class='cbucks_box'>
+      <div class='cbucks'>
+        <p class="pack_title">5000 C-BUCKS</p>
+        <img src='static/cbucks/5000.png' alt='pack' class='cbucks-pack_img'>
+        <p>€ 0,06</p>
+      </div>
+      <button class="submit_buy_shop" onclick="add_c5000()">Buy</button>
+    </div>
+
+    <div class='cbucks_box'>
+      <div class='cbucks'>
+        <p class="pack_title">13500 C-BUCKS</p>
+        <img src='static/cbucks/13500.png' alt='pack' class='cbucks-pack_img'>
+        <p>€ 0,08</p>
+      </div>
+      <button class="submit_buy_shop" onclick="add_c13500()">Buy</button>
+    </div>
+  </div>
+
+  <dialog class="card_modal" id='loot_page'>
+    <div class="modal_top">
+      <div class='modal_top_text'>
+        <h1 class="model_title">Cards Unpacked:</h1>
+        <img src="static/cancel.png" alt="Close" class="close_btn" id="loot_close">
+      </div>
+      <div class="modal_content">
+        <div id='loot_cards' class='card_dis'>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  function shop_card(card, price) {
+
+    const dict_value = {
+      'card': card,
+      'price': price
+    }
+  
+    const dict_string = JSON.stringify(dict_value)
+
+    $.ajax({
+      url: '/shop_card',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(dict_string)
+    });
+    fetch('/coins')
+      .then(response => response.json())
+      .then(data => {
+        coins = document.getElementById('coins_bar')
+        coins.innerHTML = data
+        coins_shop = document.getElementById('coins_shop')
+        coins_shop.innerHTML = data
+      })
+  }
+</script>
+
+<script>
+var x = setInterval(function() {
+  var now = new Date();
+  var minutes = 59 - now.getMinutes();
+  var seconds = 59 - now.getSeconds();
+  var milliseconds = (minutes * 60 + seconds) * 1000;
+
+  var countdown = minutes + "m " + seconds + "s ";
+
+  document.getElementById("timer").innerHTML = 'shop reset: '+ countdown;
+}, 1000);
+</script>
+
+{% endblock %}

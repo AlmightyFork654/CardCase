@@ -1,0 +1,62 @@
+<!-- {% for card in inv %}
+  <div class="card_box">
+    <img id="{{card}}" src="{{ url_for('serve_image', id=card) }}" class="card" alt="{{card}}">
+    <p class="card_name">{{ card }}</p>
+  </div>
+
+  <dialog class="card_modal" id="{{card}}_page">
+    <div class="modal_top">
+      <img src="static/cancel.png" alt="Close" class="close_btn" id="{{card}}_close">
+      <h1 class="model_title">{{ card }}</h1>
+      <div class="modal_content">
+        <div class="modal_img">
+          <img src="{{ url_for('serve_image', id=card) }}" alt="{{card}}" class="modal_img_big">
+        </div>
+        <div class="modal_text_area">
+          <div class="modal_stats">
+            <p class="text_in_modal">{{ card }} Stats:</p>
+          </div>
+          <div class="modal_text">
+            <p class="text_in_modal">This card is {{ card }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const {{card}}_open = document.getElementById('{{card}}');
+      const {{card}}_modal = document.getElementById('{{card}}_page');
+      const {{card}}_close = document.getElementById('{{card}}_close');
+
+      {{card}}_open.addEventListener('click', () => {
+        {{card}}_modal.showModal();
+      });
+
+      {{card}}_close.addEventListener('click', () => {
+        {{card}}_modal.close();
+      });
+    })
+  </script>
+{% endfor %} -->
+
+
+# if card not in card_list:
+#   return render_template("sell_centrum.html",
+#    UserName=session['name'], hasPfp=hasPfp,
+#    form=form, hasCard=False, user=db.session.query(Users).filter_by(username=session['name']).first())
+
+
+cards_2 = {
+"Beatrice": {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+"Alice": {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Mabel': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Agnes': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Henry': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Nicholas': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Elizabeth': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Joan': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Emma': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'},
+'Richard': {'age': 'Middle Ages', 'rarity': 'Common', 'class': 'Unemployed', 'type': 'Normal', 'damage': 5, 'hp': 10, 'beschrijving': 'A commoner from medieval times, just your average individual. Do not expect much in terms of strength, but they will still give it their all in a fight!'}
+        }

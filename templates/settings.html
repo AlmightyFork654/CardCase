@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Settings</h1>
+
+<div class="settings_page">
+
+  <div class="user_info">
+
+    <div class='half'>
+      {% if hasPfp %}
+        <img src="static/uploads/{{UserName}}.png" alt="user_img" class="settings_user_img">
+      {% else %}
+        <img src="static/def_user.png" alt="user_img" class="settings_user_img">
+      {% endif %}
+    </div>
+    <div class="half">
+      <p class='settings_username'>{{ UserName }}</p>
+      <form action="/settings" method="POST">
+        {{ form.hidden_tag() }}
+        {{form.logout(class="logout_button")}}
+      </form>
+    </div>
+
+  </div>
+
+  <a class="btn_edit" href="/edit_profile">
+    <span>Edit my profile</span>
+  </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Sell Centrum</h1>
+
+<div class="sell_page">
+
+  <form action="/sell_centrum" method="POST">
+
+    <div class='sell_box'>
+      <div class="half">
+        {{ form.card_choice.label(class='label_sell') }} <br>
+        {{ form.card_choice(class="dropdown", id='card_dropdown') }}
+        <div class='card_sell_display' id='card_to_sell'>
+          <!-- <img id="display_card_to_sell" src="static/def_user.png" class="card" alt="card_to_sell"> -->
+          <img id="display_card_to_sell" src="url_for('serve_image', id=)" class="card" alt="card_to_sell">
+        </div>
+      </div>
+      <div class="half">
+        {{ form.price.label(class='label_sell') }} <br>
+        {{ form.price(class="input_small") }}
+        <div class='card_sell_info'>
+          <p class='card_sell_info_name' id='name_info'></p>
+          <p class='card_sell_text' id='time_period'></p>
+          <p class='card_sell_text' id='rarity'></p>
+          <p class='card_sell_text' id='class'></p>
+          <p class='card_sell_text' id='type'></p>
+        </div>
+      </div>
+    </div>
+
+    
+    {{ form.submit(class='submit_sell')}}
+  </form>
+
+  
+</div>
+
+{% endblock %}

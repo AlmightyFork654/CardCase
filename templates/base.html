@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/png" href="static/icons/icon.png" />
+    <title>CardCase</title>
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body>
+    <script src="static/script.js"></script>
+
+    <div class="sidebar">
+      <div class="top">
+        <div class="logo">
+          <i class="bx bx-card"></i>
+          <span>CardCase</span>
+        </div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+      <div class="user">
+        {% if hasPfp %}
+          <img src="static/uploads/{{UserName}}.png" alt="user_img" class="user_img" onclick="window.location='/settings';">
+        {% else %}
+          <img src="static/def_user.png" alt="user_img" class="user_img" onclick="window.location='/settings';">
+        {% endif %}
+        <div>
+          {% if UserName %}
+            <p class="bold">{{ UserName }}</p>
+            <p><img src='static/icons/cbuck.png' class='coins_img_s' alt='cbucks'><span id='coins_bar'>{{user.coins}}</span></p>
+          {% else %}
+            <p class="bold">Signed Out</p>
+          {% endif %}
+        </div>
+      </div>
+      <ul>
+
+        <li>
+          <a href="/">
+            <i class="bx bxs-home"></i>
+            <span class="nav-item">Home</span>
+          </a>
+          <span class="tooltip">Home</span>
+        </li>
+        
+        <li>
+          <a href="/cards">
+            <i class='bx bxs-collection'></i>
+            <span class="nav-item">Cards</span>
+          </a>
+          <span class="tooltip">Cards</span>
+        </li>
+
+        {% if UserName %}
+
+        <li>
+          <a href="/inventory">
+            <i class='bx bxs-box' ></i>
+            <span class="nav-item">Inventory</span>
+          </a>
+          <span class="tooltip">Inventory</span>
+        </li>
+
+        <li>
+          <a href="/shop">
+            <i class='bx bxs-shopping-bag'></i>
+            <span class="nav-item">Shop</span>
+          </a>
+          <span class="tooltip">Shop</span>
+        </li>
+        
+        <li>
+          <a href="/market">
+            <i class="bx bxs-store-alt"></i>
+            <span class="nav-item">Market</span>
+          </a>
+          <span class="tooltip">Market</span>
+        </li>
+
+        <li>
+          <a href="/sell_centrum">
+            <i class="bx bxs-badge-dollar"></i>
+            <span class="nav-item">Sell Centrum</span>
+          </a>
+          <span class="tooltip">Sell Centrum</span>
+        </li>
+
+        {% endif %}
+      
+        {% if UserName %}
+          <li>
+            <a href="/settings">
+              <i class='bx bxs-cog'></i>
+              <span class="nav-item">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+          </li>
+        {% else %}
+          <li>
+            <a href="/login">
+              <i class='bx bxs-log-in'></i>
+              <span class="nav-item">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+          </li>
+        {% endif %}
+
+        <!-- logout/in, setting, etc. -->
+      </ul>
+    </div>
+
+    <div class="main">
+      <div class="container">
+  
+        {% block content %}
+
+          <h1 class="title">Home Page</h1>
+        
+          <div class="home_page">
+            {% if isLoggedIn %}
+
+              {% set count = namespace(n = 0) %}
+              {% for card, data in cards_list.items() %}
+                {% if inv[card] > 0 %}
+                  {% set count.n = count.n + 1 %}
+                {% endif %}
+              {% endfor %}
+
+                <p class="username_home">{{UserName}}</p>
+            
+                <div class='stats'>
+                  <p class='subtitle'> Stats:</p>
+                  <p class='coins_home'>C-BUCKS: {{user.coins}} <img src='static/icons/cbuck.png' class='coins_img_s' alt='cbucks'></p>
+                  <p class='cards_home'>Cards: {{count.n}}/252 collected</p>
+                </div>
+
+            
+            {% else %}
+              <p class='homepage_title'>Welcome to the amazing place that is: <br> CardCase!</p>
+              <div class="home_text">  
+                <p>This is a place where you can collect cards and sell them for C-BUCKS!</p>
+                <p>Want to get started? <a href="/sign_up" class='link'>Log in or Sign Up Here!</a></p>
+                <img src='static/epicvs.png' alt='cardcase_img' class='img_home'>
+                <p class='home_bottom'>CardCase is a website that was made by 2 students as a school project. The main focus of this website is the usage of databases in combination with flask. The project is currently complete, but in the futere the creators might make a game based off of this website.</p>
+              </div>
+            {% endif %}
+          </div>
+        
+        {% endblock %}
+
+      </div>
+    </div>
+  
+  </body>
+</html>

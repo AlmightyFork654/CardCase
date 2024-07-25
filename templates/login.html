@@ -1,0 +1,47 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+  <h1 class="title">Login</h1>
+
+  <div class=login_page>
+
+    <div class="login_box">
+
+      <form action="/login" method="POST">
+        {{ form.hidden_tag()}}
+        
+        <div class='logo_big'>
+          <i class="bx bx-card"></i>
+          <span>CardCase</span>
+        </div>
+    
+        {{ form.username.label(class='label') }} <br>
+        {{ form.username(class='input') }} 
+        <br>
+        {{ form.password.label(class='label') }} <br>
+        {{ form.password(class='input') }}
+        <br>
+        {{ form.submit(class='submit_login')}}
+  
+        {% if Name == False %}
+          <p class="bottom_text">Username Does Not Exist</p>
+        {% else %}
+          {% if Pass == False %}
+            <p class="bottom_text">Password Does Not Match Username</p>
+          {% else %}
+            <p class="bottom_text">‎ </p>
+          {% endif %}
+        {% endif %}
+  
+  
+        <p class="bottom_text">Don't have an account yet? <a href="/sign_up", class='link'>Sign Up Here!</a></p>
+        
+      </form>
+
+    </div>
+    
+  </div>
+
+
+{% endblock %}
